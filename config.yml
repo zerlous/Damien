@@ -1,4 +1,4 @@
-defaultContentLanguage: zh-cn
+defaultContentLanguage: zh
 baseURL: "https://zerlous.com/"
 title: Zerlous
 paginate: 5
@@ -18,22 +18,22 @@ minify:
     # minifyOutput: true
 
 languages:
-    zh-cn:
+    zh:
         languageName: "Chinese"
         weight: 1
         menu:
             main:
-                - name: 归档
+                - name: Archives
                   url: archives
                   weight: 5
-                - name: 搜索
+                - name: Categories
+                  url: categories/
+                  weight: 10
+                - name: Search
                   url: search/
                   weight: 10
-                - name: 标签
+                - name: Tags
                   url: tags/
-                  weight: 10
-                - name: 分类
-                  url: categories/
                   weight: 10
 outputs:
     home:
@@ -43,29 +43,30 @@ outputs:
 
 params:
     env: production # to enable google analytics, opengraph, twitter-cards and schema.
+    title: Blog # page title
     description: "Theme PaperMod - zerlous.com"
-    author: Theme PaperMod
+    author: 'Me'
     # author: ["Me", "You"] # multiple authors
 
     defaultTheme: auto
     # disableThemeToggle: true
-    ShowShareButtons: true
+    ShowShareButtons: false
     ShowReadingTime: true
     # disableSpecial1stPost: true
     displayFullLangName: true
     ShowPostNavLinks: true
     ShowBreadCrumbs: true
     ShowToc: true
-    # comments: false
+    comments: false
     images: ["papermod-cover.png"]
 
     profileMode:
-        enabled: false
-        title: PaperMod
-        imageUrl: "#"
+        enabled: true
+        title: 🤠 玻璃晴朗，橘子辉煌 🍊
+        imageUrl: /icon_120.png
         imageTitle: my image
-        # imageWidth: 120
-        # imageHeight: 120
+        imageWidth: 120
+        imageHeight: 120
         buttons:
             - name: Archives
               url: archives
@@ -73,28 +74,24 @@ params:
               url: tags
 
     homeInfoParams:
-        Title: "PaperMod"
+        Title: "Hi 🤠"
         Content: >
-            Welcome to demo of hugo's theme PaperMod.
+            Welcome to my personal blog.
 
-            - **PaperMod** is a simple but fast and responsive theme with useful feature-set that enhances UX.
-
-            - Do give a 🌟 on Github !
-
-            - PaperMod is based on theme [Paper](https://github.com/nanxiaobei/hugo-paper).
+            - This is my [Resume](https://resume.zerlous.com).
 
     socialIcons:
         - name: github
-          url: "https://zerlous.com/"
-        - name: KoFi
-          url: "https://ko-fi.com/adityatelange"
+          url: "https://github.com/zerlous"
+        # - name: KoFi
+        #   url: "https://ko-fi.com/adityatelange"
         - name: RsS
           url: "index.xml"
 
-    # label:
-    #     text: "Home"
-    #     icon: icon.png
-    #     iconHeight: 35
+    label:
+        text: "  "
+        icon: /logo.png
+        iconHeight: 90
 
     # analytics:
     #     google:
@@ -137,20 +134,20 @@ taxonomies:
 
 privacy:
     vimeo:
-        disabled: false
+        disabled: true
         simple: true
 
     twitter:
-        disabled: false
+        disabled: true
         enableDNT: true
         simple: true
 
     instagram:
-        disabled: false
+        disabled: true
         simple: true
 
     youtube:
-        disabled: false
+        disabled: true
         privacyEnhanced: true
 
 services:

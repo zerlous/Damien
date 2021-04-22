@@ -28,6 +28,21 @@
   </url>
   
   <url>
+    <loc>https://zerlous.com/posts/javascript-data-structures/</loc>
+    <lastmod>2021-04-21T15:13:36+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zerlous.com/posts/</loc>
+    <lastmod>2021-04-21T15:13:36+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zerlous.com/</loc>
+    <lastmod>2021-04-21T15:13:36+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://zerlous.com/posts/aaa/</loc>
     <lastmod>2021-02-24T10:55:01+08:00</lastmod>
   </url>
@@ -38,17 +53,7 @@
   </url>
   
   <url>
-    <loc>https://zerlous.com/posts/</loc>
-    <lastmod>2021-02-24T10:55:01+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://zerlous.com/tags/</loc>
-    <lastmod>2021-02-24T10:55:01+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://zerlous.com/</loc>
     <lastmod>2021-02-24T10:55:01+08:00</lastmod>
   </url>
   

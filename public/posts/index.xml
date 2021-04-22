@@ -5,7 +5,18 @@
     <link>https://zerlous.com/posts/</link>
     <description>Recent content in Posts on Zerlous</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 24 Feb 2021 10:55:01 +0800</lastBuildDate><atom:link href="https://zerlous.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 Apr 2021 15:13:36 +0800</lastBuildDate><atom:link href="https://zerlous.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Javascript Data Structures</title>
+      <link>https://zerlous.com/posts/javascript-data-structures/</link>
+      <pubDate>Wed, 21 Apr 2021 15:13:36 +0800</pubDate>
+      
+      <guid>https://zerlous.com/posts/javascript-data-structures/</guid>
+      <description>数组（Array） 描述： 数组的内存分配为按需连续；可以在内存中连续存储多元素的数据结构体；通过数组下标访问获取数组的对应元素（0&amp;hellip;n）。 优点： 数组内元素查询快。（原因：数组的内存分配是连续的，可以通过首地址查询到数组，再通过下标索引快速查到对应元素）。 缺点： 数组内元素增/删慢。(原因：数组的长度固定，增删过程会先创建一个新的数组，并复制原有数组数据)
+栈（Stack） 描述： 栈是一种特殊的仅可以支持单端操作的线性表，只可以在栈顶对元素进行入栈和出栈。 特点是先进后出（或后进先出） 优点： 数据存储获取快，栈内存由系统自动分配，并且用完会自动释放。通常用于存储基本数据类型（String，Number，Boolean，Null，Undefined） 缺点： 不灵活，数据存储大小与生命周期固定。
+队列 （Queue） 描述： 队列是一种与栈类似，但仅支持队尾入队（新增），队首出队（删除）操作的线性表。 特点是先进先出 优点：</description>
+    </item>
+    
     <item>
       <title>Aaa</title>
       <link>https://zerlous.com/posts/aaa/</link>

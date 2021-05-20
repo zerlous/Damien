@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>javascript 模块化异同 | Zerlous</title>
+<meta name="keywords" content="" />
+<meta name="description" content="CommonJS CommonJS为同步加载模式，主要应用场景为服务端，通常应用于Node.js的模块化输出与引用。核心的模块化环境变量有module、exports、require、global。
+ require命令用于提供模块引用。 module.exports命令用以提供规范模块的输出。（创建后被引用，会创建引用缓存）  // a.js const text = &#39;hello world&#39;; const printText = (name) =&gt; { console.log(text); console.log(&#39;my name is &#39;, name); }; module.exports = { printText } // b.js const { printText } = require(&#39;./a.js&#39;); printText(&#39;zerlous&#39;); // hello world // my name is zerlous  CommonJS主要采用同步加载模块，并且应用于服务端，大部分加载的文件资源都在本地服务器，所以执行效率很高。 不适用于客户端（浏览器端）。  AMD AMD (Asynchronous Module Definition)为异步加载模式，模块的加载不会产生阻塞，所有依赖该模块的的依赖语法都会在一个回调函数callback中，只有等依赖模块加载完成后，才会执行该回调函数。（* 核心RequireJS）。
+核心的模块功能命令有define、require、return、define.amd。
+ define为全局环境变量下的全局函数，用于定义模块。eg:define(id?, dependencies?, factory)。 require命令用于提供模块引用。 return命令用以提供规范模块的输出。 define.amd属性是一个对象，此属性的存在来表明函数遵循AMD 规范。  // a.js define(function() { const text = &#39;hello world&#39;; const printText = (name) =&gt; { console.">
+<meta name="author" content="Me">
+<link rel="canonical" href="https://zerlous.com/posts/js-modules-differ/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.d0c0348c2d0cff14148d0e347258519d8df2ce53ce5ac32c7bd9a549182cb8ae.css" integrity="sha256-0MA0jC0M/xQUjQ40clhRnY3yzlPOWsMse9mlSRgsuK4=" rel="preload stylesheet" as="style">
+<link rel="preload" href="/icon_120.png" as="image">
+<link rel="preload" href="/logo.png" as="image">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.27cd435cc9ed6abb4b496581b151804f79f366c412620272bb94e2f5f598ebcc.js" integrity="sha256-J81DXMntartLSWWBsVGAT3nzZsQSYgJyu5Ti9fWY68w="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://zerlous.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://zerlous.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://zerlous.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://zerlous.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://zerlous.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.79.0" />
+<meta property="og:title" content="javascript 模块化异同" />
+<meta property="og:description" content="CommonJS CommonJS为同步加载模式，主要应用场景为服务端，通常应用于Node.js的模块化输出与引用。核心的模块化环境变量有module、exports、require、global。
+ require命令用于提供模块引用。 module.exports命令用以提供规范模块的输出。（创建后被引用，会创建引用缓存）  // a.js const text = &#39;hello world&#39;; const printText = (name) =&gt; { console.log(text); console.log(&#39;my name is &#39;, name); }; module.exports = { printText } // b.js const { printText } = require(&#39;./a.js&#39;); printText(&#39;zerlous&#39;); // hello world // my name is zerlous  CommonJS主要采用同步加载模块，并且应用于服务端，大部分加载的文件资源都在本地服务器，所以执行效率很高。 不适用于客户端（浏览器端）。  AMD AMD (Asynchronous Module Definition)为异步加载模式，模块的加载不会产生阻塞，所有依赖该模块的的依赖语法都会在一个回调函数callback中，只有等依赖模块加载完成后，才会执行该回调函数。（* 核心RequireJS）。
+核心的模块功能命令有define、require、return、define.amd。
+ define为全局环境变量下的全局函数，用于定义模块。eg:define(id?, dependencies?, factory)。 require命令用于提供模块引用。 return命令用以提供规范模块的输出。 define.amd属性是一个对象，此属性的存在来表明函数遵循AMD 规范。  // a.js define(function() { const text = &#39;hello world&#39;; const printText = (name) =&gt; { console." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zerlous.com/posts/js-modules-differ/" /><meta property="og:image" content="https://zerlous.com/papermod-cover.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-05-20T10:05:13&#43;08:00" />
+<meta property="article:modified_time" content="2021-05-20T10:05:13&#43;08:00" /><meta property="og:site_name" content="Blog" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zerlous.com/papermod-cover.png"/>
+
+<meta name="twitter:title" content="javascript 模块化异同"/>
+<meta name="twitter:description" content="CommonJS CommonJS为同步加载模式，主要应用场景为服务端，通常应用于Node.js的模块化输出与引用。核心的模块化环境变量有module、exports、require、global。
+ require命令用于提供模块引用。 module.exports命令用以提供规范模块的输出。（创建后被引用，会创建引用缓存）  // a.js const text = &#39;hello world&#39;; const printText = (name) =&gt; { console.log(text); console.log(&#39;my name is &#39;, name); }; module.exports = { printText } // b.js const { printText } = require(&#39;./a.js&#39;); printText(&#39;zerlous&#39;); // hello world // my name is zerlous  CommonJS主要采用同步加载模块，并且应用于服务端，大部分加载的文件资源都在本地服务器，所以执行效率很高。 不适用于客户端（浏览器端）。  AMD AMD (Asynchronous Module Definition)为异步加载模式，模块的加载不会产生阻塞，所有依赖该模块的的依赖语法都会在一个回调函数callback中，只有等依赖模块加载完成后，才会执行该回调函数。（* 核心RequireJS）。
+核心的模块功能命令有define、require、return、define.amd。
+ define为全局环境变量下的全局函数，用于定义模块。eg:define(id?, dependencies?, factory)。 require命令用于提供模块引用。 return命令用以提供规范模块的输出。 define.amd属性是一个对象，此属性的存在来表明函数遵循AMD 规范。  // a.js define(function() { const text = &#39;hello world&#39;; const printText = (name) =&gt; { console."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://zerlous.com/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "javascript 模块化异同",
+      "item": "https://zerlous.com/posts/js-modules-differ/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "javascript 模块化异同",
+  "name": "javascript 模块化异同",
+  "description": "CommonJS CommonJS为同步加载模式，主要应用场景为服务端，通常应用于Node.js的模块化输出与引用。核心的模块化环境变量有module、exports、require、global。\n require命令用于提供模块引用。 module.exports命令用以提供规范模块的输出。（创建后被引用，会创建引用缓存）  // a.js const text = \u0026#39;hello world\u0026#39;; const printText = (name) =\u0026gt; { console.log(text); console.log(\u0026#39;my name is \u0026#39;, name); }; module.exports = { printText } // b.js const { printText } = require(\u0026#39;./a.js\u0026#39;); printText(\u0026#39;zerlous\u0026#39;); // hello world // my name is zerlous  CommonJS主要采用同步加载模块，并且应用于服务端，大部分加载的文件资源都在本地服务器，所以执行效率很高。 不适用于客户端（浏览器端）。  AMD AMD (Asynchronous Module Definition)为异步加载模式，模块的加载不会产生阻塞，所有依赖该模块的的依赖语法都会在一个回调函数callback中，只有等依赖模块加载完成后，才会执行该回调函数。（* 核心RequireJS）。\n核心的模块功能命令有define、require、return、define.amd。\n define为全局环境变量下的全局函数，用于定义模块。eg:define(id?, dependencies?, factory)。 require命令用于提供模块引用。 return命令用以提供规范模块的输出。 define.amd属性是一个对象，此属性的存在来表明函数遵循AMD 规范。  // a.js define(function() { const text = \u0026#39;hello world\u0026#39;; const printText = (name) =\u0026gt; { console.",
+  "keywords": [
+    
+  ],
+  "articleBody": "CommonJS CommonJS为同步加载模式，主要应用场景为服务端，通常应用于Node.js的模块化输出与引用。核心的模块化环境变量有module、exports、require、global。\n require命令用于提供模块引用。 module.exports命令用以提供规范模块的输出。（创建后被引用，会创建引用缓存）  // a.js const text = 'hello world'; const printText = (name) = { console.log(text); console.log('my name is ', name); }; module.exports = { printText } // b.js const { printText } = require('./a.js'); printText('zerlous'); // hello world // my name is zerlous  CommonJS主要采用同步加载模块，并且应用于服务端，大部分加载的文件资源都在本地服务器，所以执行效率很高。 不适用于客户端（浏览器端）。  AMD AMD (Asynchronous Module Definition)为异步加载模式，模块的加载不会产生阻塞，所有依赖该模块的的依赖语法都会在一个回调函数callback中，只有等依赖模块加载完成后，才会执行该回调函数。（* 核心RequireJS）。\n核心的模块功能命令有define、require、return、define.amd。\n define为全局环境变量下的全局函数，用于定义模块。eg:define(id?, dependencies?, factory)。 require命令用于提供模块引用。 return命令用以提供规范模块的输出。 define.amd属性是一个对象，此属性的存在来表明函数遵循AMD 规范。  // a.js define(function() { const text = 'hello world'; const printText = (name) = { console.log(text); console.log('my name is ', name); }; return { printText }; }); // app.js define(function () { const a_model = require('./a.js'); a_model.printText('zerlous'); // hello world  // my name is zerlous }); script src=\"https://cdn.bootcss.com/require.js/2.3.6/require.min.js\"script script requirejs(['app']); script CMD CMD(Common Module Definition)为通用模块定义，同时适用于服务端及客户端。（* 核心Sea.js）。 CMD模块加载模式与AMD类似，但是有差异。\n AMD依赖前置、提前执行。  AMD在加载模块完成后，立即会执行该模块，所有模块加载执行完成后，执行callback。主流程一定是在所有依赖加载完成后执行的，但是依赖模块的执行顺序是依赖网络，并非书写顺序。\n  CMD依赖就近、延迟执行  CMD在加载完模块后，并不会立即执行，所有模块加载执行完成后，执行callback。在callback中，遇到require再执行对应的模块，执行顺序与书写顺序保持一致。\n   // a.js define(function(require, exports, module) { const text = 'hello world'; const printText = (name) = { console.log(text); console.log('my name is ', name); }; exports.printText = printText; }); // b.js define(function(require, exports, module) { const printDate = () = { console.log('print datastamp is: ', (new Date())*1)); }; exports.printDate = printDate; }); // app.js define(function (require, exports, module) { const a_model = require('./a.js'); a_model.printText('zerlous'); // hello world  // my name is zerlous  const b_model = require('./b.js'); b_model.printDate(); // print datastamp is: 1621111111111 }); script src=\"https://cdn.bootcss.com/seajs/3.0.3/sea.js\"script script seajs.use('./app.js') script UMD UMD(*Universal Module Definition *)为通用模块定义，主要解决CommonJS和AMD两种模式下代码不通用的问题，同时支持老式的全局变量规范。\n ⭐️⭐️⭐️AMD规范。 define为函数类型，且存在define.amd对象. ⭐️⭐️⭐️CommonJS规范。module为对象类型，且存在module.exports.  // app.js (function (global, factory) { typeof exports === 'object' \u0026\u0026 typeof module !== 'undefined' ? module.exports = factory() : typeof define === 'function' \u0026\u0026 define.amd ? define(factory) : (global = global || self, global.app = factory()); // 原始代码 }(this, (function () { 'use strict'; const app = () = { return 'hello world'; }; return app; })));  script src=\"app.js\"script script console.log(app()); // hello world script ES Modules ESM(ECMA Script Modules)为javascript官方的标准化模块系统。 同时适用于服务端和客户端。是当前主流使用的多浏览器兼容的模块管理系统。\n 通过import和export来确定模块的导入导出。且与CommonJS模块可混合使用。 ESM输出的是值的引用，输出接口动态绑定。而CommonJS输出的是值的拷贝。 ESM编译时执行。 而CommonJS模块总是在运行时加载。  ESM引用输出与CommonJS值拷贝输出的区别？  ESM值引用输出, 引用模块内的作用域是维持的。引用方法是会重复执行的。 CommonJS值拷贝缓存，重复引用不会重复执行，获取的是模块缓存。  ESM引用输出 // a.js import { age } from './b.js'; console.log(age); setTimeout(() = { console.log(age); import('./b.js').then(({ age }) = { console.log(age); }) }, 100); // b.js export let age = 1; setTimeout(() = { age = 2; }, 10); // 打开 index.html // 执行结果： // 1 // 2 // 2 CommonJS值拷贝输出 // a.js const b = require('./b'); console.log(b.age); setTimeout(() = { console.log(b.age); console.log(require('./b').age); }, 100); // b.js let age = 1; setTimeout(() = { age = 18; }, 10); module.exports = { age } // 执行：node a.js // 执行结果： // 1 // 1 // 1 动态加载和静态编译的区别?  动态加载，只有当模块运行时，才知道导出的模块key。 静态编译，在编译阶段就知道导出的模块key。  // 动态加载 var test = 'hello' module.exports = { [test + '1']: 'world' } // ---------------------- // 静态编译 export function hello() {return 'world'} ESM的特性  import命令会被 JavaScript 引擎静态分析，优先于模块内的其他内容执行。 export命令会有变量声明提前的效果。  总结  CommonJS同步加载 AMD异步加载 UMD = CommonJS + AMD ESM是标准规范, 取代UMD  参考 https://mp.weixin.qq.com/s/uZASCbdLrL8tWBa31CgTjA https://github.com/rollup/rollup/issues/3011#issuecomment-516084596 https://github.com/rollup/plugins/tree/master/packages/commonjs https://www.zhihu.com/question/63240671 https://www.yuque.com/baichuan/notes/emputh https://github.com/indutny/webpack-common-shake#limitations http://xbhong.top/2018/03/12/commonjs/ https://www.douban.com/note/283566440/ https://blog.fundebug.com/2018/08/15/reduce-js-payload-with-tree-shaking/ http://huangxuan.me/js-module-7day/#/13 https://www.jianshu.com/p/6c26fb7541f1\nReferences  [1] CommonJS规范 [2] AMD规范 [3] CMD规范 [4] UMD文档: [5] ES Modules 文档 [6] 深入理解 ES6 模块机制  ",
+  "wordCount" : "465",
+  "inLanguage": "zh",
+  "datePublished": "2021-05-20T10:05:13+08:00",
+  "dateModified": "2021-05-20T10:05:13+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Me"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://zerlous.com/posts/js-modules-differ/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Zerlous",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://zerlous.com/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: #1d1e20;
+                --entry: #2e2e33;
+                --primary: rgba(255, 255, 255, 0.84);
+                --secondary: rgba(255, 255, 255, 0.56);
+                --tertiary: rgba(255, 255, 255, 0.16);
+                --content: rgba(255, 255, 255, 0.74);
+                --hljs-bg: #2e2e33;
+                --code-bg: #37383e;
+                --border: #333;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://zerlous.com/" accesskey="h" title="   (Alt + H)">
+                <img src="/logo.png" alt="logo" aria-label="logo"
+                    height="90">  </a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://zerlous.com/archives" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zerlous.com/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zerlous.com/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zerlous.com/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://zerlous.com/">Home</a>&nbsp;»&nbsp;<a href="https://zerlous.com/posts/">Posts</a></div>
+    <h1 class="post-title">
+      javascript 模块化异同<div class="entry-isdraft"><sup>&nbsp;&nbsp;[draft]</sup></div>
+    </h1>
+    <div class="post-meta">May 20, 2021&nbsp;·&nbsp;3 分钟&nbsp;·&nbsp;Me
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <div class="details">目录</div>
+        </summary>
+        <div class="inner"><ul>
+                <li>
+                    <a href="#commonjs" aria-label="CommonJS">CommonJS</a></li>
+                <li>
+                    <a href="#amd" aria-label="AMD">AMD</a></li>
+                <li>
+                    <a href="#cmd" aria-label="CMD">CMD</a></li>
+                <li>
+                    <a href="#umd" aria-label="UMD">UMD</a></li>
+                <li>
+                    <a href="#es-modules" aria-label="ES Modules">ES Modules</a><ul>
+                        
+                <li>
+                    <a href="#esm%e5%bc%95%e7%94%a8%e8%be%93%e5%87%ba%e4%b8%8ecommonjs%e5%80%bc%e6%8b%b7%e8%b4%9d%e8%be%93%e5%87%ba%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="ESM引用输出与CommonJS值拷贝输出的区别？">ESM引用输出与CommonJS值拷贝输出的区别？</a><ul>
+                        
+                <li>
+                    <a href="#esm%e5%bc%95%e7%94%a8%e8%be%93%e5%87%ba" aria-label="ESM引用输出">ESM引用输出</a></li>
+                <li>
+                    <a href="#commonjs%e5%80%bc%e6%8b%b7%e8%b4%9d%e8%be%93%e5%87%ba" aria-label="CommonJS值拷贝输出">CommonJS值拷贝输出</a></li>
+                <li>
+                    <a href="#%e5%8a%a8%e6%80%81%e5%8a%a0%e8%bd%bd%e5%92%8c%e9%9d%99%e6%80%81%e7%bc%96%e8%af%91%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="动态加载和静态编译的区别?">动态加载和静态编译的区别?</a></li>
+                <li>
+                    <a href="#esm%e7%9a%84%e7%89%b9%e6%80%a7" aria-label="ESM的特性">ESM的特性</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#%e6%80%bb%e7%bb%93" aria-label="总结">总结</a></li>
+                <li>
+                    <a href="#%e5%8f%82%e8%80%83" aria-label="参考">参考</a></li>
+                <li>
+                    <a href="#references" aria-label="References">References</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h3 id="commonjs">CommonJS<a hidden class="anchor" aria-hidden="true" href="#commonjs">#</a></h3>
+<p><code>CommonJS</code>为<strong>同步加载</strong>模式，主要应用场景为服务端，通常应用于<code>Node.js</code>的模块化输出与引用。核心的模块化环境变量有<code>module</code>、<code>exports</code>、<code>require</code>、<code>global</code>。</p>
+<ul>
+<li><code>require</code>命令用于提供模块引用。</li>
+<li><code>module.exports</code>命令用以提供规范模块的输出。（创建后被引用，会创建引用缓存）</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Javascript" data-lang="Javascript"><span style="color:#75715e">// a.js
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">text</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;hello world&#39;</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">printText</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">name</span>) =&gt; {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">text</span>);
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;my name is &#39;</span>, <span style="color:#a6e22e">name</span>);
+};
+
+<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+    <span style="color:#a6e22e">printText</span>
+}
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Javascript" data-lang="Javascript"><span style="color:#75715e">// b.js
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">printText</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;./a.js&#39;</span>);
+
+<span style="color:#a6e22e">printText</span>(<span style="color:#e6db74">&#39;zerlous&#39;</span>);
+<span style="color:#75715e">// hello world
+</span><span style="color:#75715e">// my name is zerlous
+</span></code></pre></div><ul>
+<li><code>CommonJS</code>主要采用<strong>同步加载模块</strong>，并且应用于服务端，大部分加载的文件资源都在本地服务器，所以执行效率很高。</li>
+<li>不适用于客户端（浏览器端）。</li>
+</ul>
+<h3 id="amd">AMD<a hidden class="anchor" aria-hidden="true" href="#amd">#</a></h3>
+<p><code>AMD</code> (<em>Asynchronous Module Definition</em>)为<strong>异步加载</strong>模式，模块的加载不会产生阻塞，所有依赖该模块的的依赖语法都会在一个回调函数<code>callback</code>中，只有等依赖模块加载完成后，才会执行该回调函数。（* 核心<code>RequireJS</code>）。</p>
+<p>核心的模块功能命令有<code>define</code>、<code>require</code>、<code>return</code>、<code>define.amd</code>。</p>
+<ul>
+<li><code>define</code>为全局环境变量下的全局函数，用于定义模块。eg:<code>define(id?, dependencies?, factory)</code>。</li>
+<li><code>require</code>命令用于提供模块引用。</li>
+<li><code>return</code>命令用以提供规范模块的输出。</li>
+<li><code>define.amd</code>属性是一个对象，此属性的存在来表明函数遵循<a href="https://en.wikipedia.org/wiki/Asynchronous_module_definition#:~:text=Asynchronous%20module%20definition%20(AMD)%20is,loads%20them%20asynchronously%20if%20desired."><strong>AMD 规范</strong></a>。</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Javascript" data-lang="Javascript"><span style="color:#75715e">// a.js
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">define</span>(<span style="color:#66d9ef">function</span>() {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">text</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;hello world&#39;</span>;
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">printText</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">name</span>) =&gt; {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">text</span>);
+     <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;my name is &#39;</span>, <span style="color:#a6e22e">name</span>);
+  };
+  <span style="color:#66d9ef">return</span> {
+    <span style="color:#a6e22e">printText</span>
+  };
+});
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Javascript" data-lang="Javascript"><span style="color:#75715e">// app.js
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">define</span>(<span style="color:#66d9ef">function</span> () {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">a_model</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;./a.js&#39;</span>);
+  <span style="color:#a6e22e">a_model</span>.<span style="color:#a6e22e">printText</span>(<span style="color:#e6db74">&#39;zerlous&#39;</span>);
+  <span style="color:#75715e">// hello world
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// my name is zerlous
+</span><span style="color:#75715e"></span>});
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Html" data-lang="Html">&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.bootcss.com/require.js/2.3.6/require.min.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;<span style="color:#f92672">script</span>&gt;
+    <span style="color:#a6e22e">requirejs</span>([<span style="color:#e6db74">&#39;app&#39;</span>]);
+&lt;/<span style="color:#f92672">script</span>&gt;
+</code></pre></div><h3 id="cmd">CMD<a hidden class="anchor" aria-hidden="true" href="#cmd">#</a></h3>
+<p><code>CMD</code>(<em>Common Module Definition</em>)为<strong>通用模块定义</strong>，同时适用于服务端及客户端。（* 核心<code>Sea.js</code>）。
+<code>CMD</code>模块加载模式与<code>AMD</code>类似，但是有差异。</p>
+<ul>
+<li><code>AMD</code>依赖前置、提前执行。
+<blockquote>
+<p><code>AMD</code>在加载模块完成后，<strong>立即会执行该模块</strong>，所有模块加载执行完成后，执行<code>callback</code>。主流程一定是在所有依赖加载完成后执行的，但是依赖模块的<strong>执行顺序是依赖网络，并非书写顺序</strong>。</p>
+</blockquote>
+</li>
+<li><code>CMD</code>依赖就近、延迟执行
+<blockquote>
+<p><code>CMD</code>在加载完模块后，<strong>并不会立即执行</strong>，所有模块加载执行完成后，执行<code>callback</code>。在<code>callback</code>中，遇到<code>require</code>再执行对应的模块，<strong>执行顺序与书写顺序保持一致</strong>。</p>
+</blockquote>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Javascript" data-lang="Javascript"><span style="color:#75715e">// a.js
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">define</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">require</span>, <span style="color:#a6e22e">exports</span>, <span style="color:#a6e22e">module</span>) {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">text</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;hello world&#39;</span>;
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">printText</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">name</span>) =&gt; {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">text</span>);
+     <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;my name is &#39;</span>, <span style="color:#a6e22e">name</span>);
+  };
+  <span style="color:#a6e22e">exports</span>.<span style="color:#a6e22e">printText</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">printText</span>;
+});
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Javascript" data-lang="Javascript"><span style="color:#75715e">// b.js
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">define</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">require</span>, <span style="color:#a6e22e">exports</span>, <span style="color:#a6e22e">module</span>) {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">printDate</span> <span style="color:#f92672">=</span> () =&gt; {
+     <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;print datastamp is: &#39;</span>, (<span style="color:#66d9ef">new</span> Date())<span style="color:#f92672">*</span><span style="color:#ae81ff">1</span>));
+  };
+  <span style="color:#a6e22e">exports</span>.<span style="color:#a6e22e">printDate</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">printDate</span>;
+});
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Javascript" data-lang="Javascript"><span style="color:#75715e">// app.js
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">define</span>(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">require</span>, <span style="color:#a6e22e">exports</span>, <span style="color:#a6e22e">module</span>) {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">a_model</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;./a.js&#39;</span>);
+  <span style="color:#a6e22e">a_model</span>.<span style="color:#a6e22e">printText</span>(<span style="color:#e6db74">&#39;zerlous&#39;</span>);
+  <span style="color:#75715e">// hello world
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// my name is zerlous
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">b_model</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;./b.js&#39;</span>);
+  <span style="color:#a6e22e">b_model</span>.<span style="color:#a6e22e">printDate</span>();
+  <span style="color:#75715e">// print datastamp is: 1621111111111
+</span><span style="color:#75715e"></span>});
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Html" data-lang="Html">&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://cdn.bootcss.com/seajs/3.0.3/sea.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;<span style="color:#f92672">script</span>&gt;
+    <span style="color:#a6e22e">seajs</span>.<span style="color:#a6e22e">use</span>(<span style="color:#e6db74">&#39;./app.js&#39;</span>)
+&lt;/<span style="color:#f92672">script</span>&gt;
+</code></pre></div><h3 id="umd">UMD<a hidden class="anchor" aria-hidden="true" href="#umd">#</a></h3>
+<p><code>UMD</code>(*Universal Module Definition *)为<strong>通用模块定义</strong>，主要解决<code>CommonJS</code>和<code>AMD</code>两种模式下代码不通用的问题，同时支持老式的全局变量规范。</p>
+<ul>
+<li>⭐️⭐️⭐️<code>AMD</code>规范。 <code>define</code>为函数类型，且存在<code>define.amd</code>对象.</li>
+<li>⭐️⭐️⭐️<code>CommonJS</code>规范。<code>module</code>为对象类型，且存在<code>module.exports</code>.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Javascript" data-lang="Javascript"><span style="color:#75715e">// app.js
+</span><span style="color:#75715e"></span>(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">global</span>, <span style="color:#a6e22e">factory</span>) {
+    <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">exports</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;object&#39;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">module</span> <span style="color:#f92672">!==</span> <span style="color:#e6db74">&#39;undefined&#39;</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">factory</span>() <span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">define</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;function&#39;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">define</span>.<span style="color:#a6e22e">amd</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">define</span>(<span style="color:#a6e22e">factory</span>) <span style="color:#f92672">:</span>
+    (<span style="color:#a6e22e">global</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">global</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">self</span>, <span style="color:#a6e22e">global</span>.<span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">factory</span>()); <span style="color:#75715e">// 原始代码
+</span><span style="color:#75715e"></span>}(<span style="color:#66d9ef">this</span>, (<span style="color:#66d9ef">function</span> () { <span style="color:#e6db74">&#39;use strict&#39;</span>;
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> () =&gt; {
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;hello world&#39;</span>;
+    };
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">app</span>;
+})));
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Html" data-lang="Html"><span style="color:#75715e">&lt;!-- index.html --&gt;</span>
+&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;app.js&#34;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;<span style="color:#f92672">script</span>&gt;
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">app</span>());
+  <span style="color:#75715e">// hello world
+</span><span style="color:#75715e"></span>&lt;/<span style="color:#f92672">script</span>&gt;
+</code></pre></div><h3 id="es-modules">ES Modules<a hidden class="anchor" aria-hidden="true" href="#es-modules">#</a></h3>
+<p><code>ESM</code>(<em>ECMA Script Modules</em>)为javascript官方的<strong>标准化模块系统</strong>。 同时适用于服务端和客户端。是当前主流使用的多浏览器兼容的模块管理系统。</p>
+<ul>
+<li>通过<code>import</code>和<code>export</code>来确定模块的导入导出。且与<code>CommonJS</code>模块可混合使用。</li>
+<li><code>ESM</code>输出的是值的引用，输出接口动态绑定。而<code>CommonJS</code>输出的是值的拷贝。</li>
+<li><code>ESM</code>编译时执行。 而<code>CommonJS</code>模块总是在运行时加载。</li>
+</ul>
+<h4 id="esm引用输出与commonjs值拷贝输出的区别">ESM引用输出与CommonJS值拷贝输出的区别？<a hidden class="anchor" aria-hidden="true" href="#esm引用输出与commonjs值拷贝输出的区别">#</a></h4>
+<ul>
+<li><code>ESM</code>值引用输出, 引用模块内的作用域是维持的。引用方法是会重复执行的。</li>
+<li><code>CommonJS</code>值拷贝缓存，重复引用不会重复执行，获取的是模块缓存。</li>
+</ul>
+<h5 id="esm引用输出">ESM引用输出<a hidden class="anchor" aria-hidden="true" href="#esm引用输出">#</a></h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Javascript" data-lang="Javascript"><span style="color:#75715e">// a.js
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">age</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./b.js&#39;</span>;
+
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">age</span>);
+<span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">age</span>);
+    <span style="color:#66d9ef">import</span>(<span style="color:#e6db74">&#39;./b.js&#39;</span>).<span style="color:#a6e22e">then</span>(({ <span style="color:#a6e22e">age</span> }) =&gt; {
+        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">age</span>);
+    })
+}, <span style="color:#ae81ff">100</span>);
+
+<span style="color:#75715e">// b.js
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+
+<span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+    <span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+}, <span style="color:#ae81ff">10</span>);
+<span style="color:#75715e">// 打开 index.html
+</span><span style="color:#75715e">// 执行结果：
+</span><span style="color:#75715e">// 1
+</span><span style="color:#75715e">// 2
+</span><span style="color:#75715e">// 2
+</span></code></pre></div><h5 id="commonjs值拷贝输出">CommonJS值拷贝输出<a hidden class="anchor" aria-hidden="true" href="#commonjs值拷贝输出">#</a></h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Javascript" data-lang="Javascript"><span style="color:#75715e">// a.js
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;./b&#39;</span>);
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">age</span>);
+<span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">age</span>);
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;./b&#39;</span>).<span style="color:#a6e22e">age</span>);
+}, <span style="color:#ae81ff">100</span>);
+
+<span style="color:#75715e">// b.js
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+<span style="color:#a6e22e">setTimeout</span>(() =&gt; {
+  <span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">18</span>;
+}, <span style="color:#ae81ff">10</span>);
+<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">age</span>
+}
+<span style="color:#75715e">// 执行：node a.js
+</span><span style="color:#75715e">// 执行结果：
+</span><span style="color:#75715e">// 1
+</span><span style="color:#75715e">// 1
+</span><span style="color:#75715e">// 1
+</span></code></pre></div><h5 id="动态加载和静态编译的区别">动态加载和静态编译的区别?<a hidden class="anchor" aria-hidden="true" href="#动态加载和静态编译的区别">#</a></h5>
+<ul>
+<li>动态加载，只有当模块运行时，才知道导出的模块key。</li>
+<li>静态编译，在编译阶段就知道导出的模块key。</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Javascript" data-lang="Javascript"><span style="color:#75715e">// 动态加载
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">test</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;hello&#39;</span>
+<span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> {
+  [<span style="color:#a6e22e">test</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;1&#39;</span>]<span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;world&#39;</span>
+}
+
+<span style="color:#75715e">// ----------------------
+</span><span style="color:#75715e">// 静态编译
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">hello</span>() {<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;world&#39;</span>}
+</code></pre></div><h5 id="esm的特性">ESM的特性<a hidden class="anchor" aria-hidden="true" href="#esm的特性">#</a></h5>
+<ul>
+<li><code>import</code>命令会被 JavaScript 引擎静态分析，优先于模块内的其他内容执行。</li>
+<li><code>export</code>命令会有变量声明提前的效果。</li>
+</ul>
+<h3 id="总结">总结<a hidden class="anchor" aria-hidden="true" href="#总结">#</a></h3>
+<ul>
+<li><code>CommonJS</code>同步加载</li>
+<li><code>AMD</code>异步加载</li>
+<li><code>UMD</code> = <code>CommonJS</code> + <code>AMD</code></li>
+<li><code>ESM</code>是标准规范, 取代<code>UMD</code></li>
+</ul>
+<h3 id="参考">参考<a hidden class="anchor" aria-hidden="true" href="#参考">#</a></h3>
+<p><a href="https://mp.weixin.qq.com/s/uZASCbdLrL8tWBa31CgTjA">https://mp.weixin.qq.com/s/uZASCbdLrL8tWBa31CgTjA</a>
+<a href="https://github.com/rollup/rollup/issues/3011#issuecomment-516084596">https://github.com/rollup/rollup/issues/3011#issuecomment-516084596</a>
+<a href="https://github.com/rollup/plugins/tree/master/packages/commonjs">https://github.com/rollup/plugins/tree/master/packages/commonjs</a>
+<a href="https://www.zhihu.com/question/63240671">https://www.zhihu.com/question/63240671</a>
+<a href="https://www.yuque.com/baichuan/notes/emputh">https://www.yuque.com/baichuan/notes/emputh</a>
+<a href="https://github.com/indutny/webpack-common-shake#limitations">https://github.com/indutny/webpack-common-shake#limitations</a>
+<a href="http://xbhong.top/2018/03/12/commonjs/">http://xbhong.top/2018/03/12/commonjs/</a>
+<a href="https://www.douban.com/note/283566440/">https://www.douban.com/note/283566440/</a>
+<a href="https://blog.fundebug.com/2018/08/15/reduce-js-payload-with-tree-shaking/">https://blog.fundebug.com/2018/08/15/reduce-js-payload-with-tree-shaking/</a>
+<a href="http://huangxuan.me/js-module-7day/#/13">http://huangxuan.me/js-module-7day/#/13</a>
+<a href="https://www.jianshu.com/p/6c26fb7541f1">https://www.jianshu.com/p/6c26fb7541f1</a></p>
+<h3 id="references">References<a hidden class="anchor" aria-hidden="true" href="#references">#</a></h3>
+<ul>
+<li>[1] <a href="http://wiki.commonjs.org/wiki/CommonJS">CommonJS规范</a></li>
+<li>[2] <a href="https://github.com/amdjs/amdjs-api/wiki/AMD">AMD规范</a></li>
+<li>[3] <a href="https://github.com/cmdjs/specification/blob/master/draft/module.md">CMD规范</a></li>
+<li>[4] <a href="https://github.com/umdjs/umd">UMD文档</a>:</li>
+<li>[5] <a href="http://es6.ruanyifeng.com/#docs/module-loader">ES Modules 文档</a></li>
+<li>[6] <a href="https://juejin.im/entry/5a879e28f265da4e82635152">深入理解 ES6 模块机制</a></li>
+</ul>
+
+</div>
+  <footer class="post-footer">
+<nav class="paginav">
+  <a class="prev" href="https://zerlous.com/posts/papermod/papermod-variables/">
+    <span class="title">« 上一页</span>
+    <br>
+    <span>Variables | Front Matter</span>
+  </a>
+  <a class="next" href="https://zerlous.com/posts/wxs-add-unit/">
+    <span class="title">下一页 »</span>
+    <br>
+    <span>PX单位的wxs实现</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    <footer class="footer">
+    <span>&copy; 2021 <a href="https://zerlous.com/">Zerlous</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)">
+    <button class="top-link" id="top-link" type="button" accesskey="g">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+            <path d="M12 6H0l6-6z" />
+        </svg>
+    </button>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+    menu.onscroll = function () {
+        localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

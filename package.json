@@ -1,11 +1,11 @@
 {
-    "name": "damien",
-    "version": "1.0.0",
-    "description": "The resource for zerlous.com",
-    "scripts": {
-        "start": "hugo server -D",
-        "build": "hugo -D",
-        "new": "hugo new",
-        "new:post": "hugo new --kind post"
-    }
+  "name": "damien",
+  "version": "1.0.0",
+  "description": "The resource for zerlous.com",
+  "scripts": {
+    "start": "hugo server -D",
+    "build": "hugo -D",
+    "new": "hugo new",
+    "new:post": "hugo new --kind post"
+  }
 }

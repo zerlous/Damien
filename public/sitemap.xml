@@ -28,17 +28,52 @@
   </url>
   
   <url>
-    <loc>https://zerlous.com/posts/javascript-data-structures/</loc>
-    <lastmod>2021-04-21T15:13:36+08:00</lastmod>
+    <loc>https://zerlous.com/posts/js-modules-differ/</loc>
+    <lastmod>2021-05-20T10:05:13+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://zerlous.com/posts/</loc>
-    <lastmod>2021-04-21T15:13:36+08:00</lastmod>
+    <lastmod>2021-05-20T10:05:13+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://zerlous.com/</loc>
+    <lastmod>2021-05-20T10:05:13+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zerlous.com/tags/javascript/</loc>
+    <lastmod>2021-05-18T15:31:27+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zerlous.com/posts/wxs-add-unit/</loc>
+    <lastmod>2021-05-18T15:31:27+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zerlous.com/tags/</loc>
+    <lastmod>2021-05-18T15:31:27+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zerlous.com/tags/wxs/</loc>
+    <lastmod>2021-05-18T15:31:27+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zerlous.com/posts/wxs-bem/</loc>
+    <lastmod>2021-05-18T15:16:01+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zerlous.com/posts/wxs-memoize/</loc>
+    <lastmod>2021-05-18T14:59:28+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zerlous.com/posts/javascript-data-structures/</loc>
     <lastmod>2021-04-21T15:13:36+08:00</lastmod>
   </url>
   
@@ -49,11 +84,6 @@
   
   <url>
     <loc>https://zerlous.com/tags/first/</loc>
-    <lastmod>2021-02-24T10:55:01+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://zerlous.com/tags/</loc>
     <lastmod>2021-02-24T10:55:01+08:00</lastmod>
   </url>
   

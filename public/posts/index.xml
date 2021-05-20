@@ -1,11 +1,54 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on Zerlous</title>
     <link>https://zerlous.com/posts/</link>
     <description>Recent content in Posts on Zerlous</description>
+    <image>
+      <url>https://zerlous.com/papermod-cover.png</url>
+      <link>https://zerlous.com/papermod-cover.png</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 21 Apr 2021 15:13:36 +0800</lastBuildDate><atom:link href="https://zerlous.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 20 May 2021 10:05:13 +0800</lastBuildDate><atom:link href="https://zerlous.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>javascript 模块化异同</title>
+      <link>https://zerlous.com/posts/js-modules-differ/</link>
+      <pubDate>Thu, 20 May 2021 10:05:13 +0800</pubDate>
+      
+      <guid>https://zerlous.com/posts/js-modules-differ/</guid>
+      <description>CommonJS CommonJS为同步加载模式，主要应用场景为服务端，通常应用于Node.js的模块化输出与引用。核心的模块化环境变量有module、exports、require、global。
+ require命令用于提供模块引用。 module.exports命令用以提供规范模块的输出。（创建后被引用，会创建引用缓存）  // a.js const text = &amp;#39;hello world&amp;#39;; const printText = (name) =&amp;gt; { console.log(text); console.log(&amp;#39;my name is &amp;#39;, name); }; module.exports = { printText } // b.js const { printText } = require(&amp;#39;./a.js&amp;#39;); printText(&amp;#39;zerlous&amp;#39;); // hello world // my name is zerlous  CommonJS主要采用同步加载模块，并且应用于服务端，大部分加载的文件资源都在本地服务器，所以执行效率很高。 不适用于客户端（浏览器端）。  AMD AMD (Asynchronous Module Definition)为异步加载模式，模块的加载不会产生阻塞，所有依赖该模块的的依赖语法都会在一个回调函数callback中，只有等依赖模块加载完成后，才会执行该回调函数。（* 核心RequireJS）。
+核心的模块功能命令有define、require、return、define.amd。
+ define为全局环境变量下的全局函数，用于定义模块。eg:define(id?, dependencies?, factory)。 require命令用于提供模块引用。 return命令用以提供规范模块的输出。 define.amd属性是一个对象，此属性的存在来表明函数遵循AMD 规范。  // a.js define(function() { const text = &amp;#39;hello world&amp;#39;; const printText = (name) =&amp;gt; { console.</description>
+    </item>
+    
+    <item>
+      <title>PX单位的wxs实现</title>
+      <link>https://zerlous.com/posts/wxs-add-unit/</link>
+      <pubDate>Tue, 18 May 2021 15:31:27 +0800</pubDate>
+      
+      <guid>https://zerlous.com/posts/wxs-add-unit/</guid>
+      <description>Desc Text.</description>
+    </item>
+    
+    <item>
+      <title>BEM规范生成工具类wxs实现</title>
+      <link>https://zerlous.com/posts/wxs-bem/</link>
+      <pubDate>Tue, 18 May 2021 15:16:01 +0800</pubDate>
+      
+      <guid>https://zerlous.com/posts/wxs-bem/</guid>
+      <description>Desc Text.</description>
+    </item>
+    
+    <item>
+      <title>记忆函数memoize的wxs实现</title>
+      <link>https://zerlous.com/posts/wxs-memoize/</link>
+      <pubDate>Tue, 18 May 2021 14:59:28 +0800</pubDate>
+      
+      <guid>https://zerlous.com/posts/wxs-memoize/</guid>
+      <description>Desc Text.</description>
+    </item>
+    
     <item>
       <title>Javascript Data Structures</title>
       <link>https://zerlous.com/posts/javascript-data-structures/</link>
@@ -23,7 +66,7 @@
       <pubDate>Wed, 24 Feb 2021 10:55:01 +0800</pubDate>
       
       <guid>https://zerlous.com/posts/aaa/</guid>
-      <description></description>
+      <description>Desc Text.</description>
     </item>
     
     <item>
@@ -41,7 +84,7 @@
       <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
       
       <guid>https://zerlous.com/posts/markdown-syntax/</guid>
-      <description>&lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;</description>
+      <description>Sample article showcasing basic Markdown syntax and formatting for HTML elements.</description>
     </item>
     
     <item>
@@ -50,7 +93,7 @@
       <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
       
       <guid>https://zerlous.com/posts/rich-content/</guid>
-      <description>&lt;p&gt;Hugo ships with several &lt;a href=&#34;https://gohugo.io/content-management/shortcodes/#use-hugos-built-in-shortcodes&#34;&gt;Built-in Shortcodes&lt;/a&gt; for rich content, along with a &lt;a href=&#34;https://gohugo.io/about/hugo-and-gdpr/&#34;&gt;Privacy Config&lt;/a&gt; and a set of Simple Shortcodes that enable static and no-JS versions of various social media embeds.&lt;/p&gt;</description>
+      <description>A brief description of Hugo Shortcodes</description>
     </item>
     
     <item>
@@ -59,7 +102,7 @@
       <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
       
       <guid>https://zerlous.com/posts/placeholder-text/</guid>
-      <description>&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;</description>
+      <description>Lorem Ipsum Dolor Si Amet</description>
     </item>
     
     <item>
@@ -68,7 +111,7 @@
       <pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate>
       
       <guid>https://zerlous.com/posts/math-typesetting/</guid>
-      <description>&lt;p&gt;Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p&gt;</description>
+      <description>A brief guide to setup KaTeX</description>
     </item>
     
     <item>
@@ -77,7 +120,7 @@
       <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
       
       <guid>https://zerlous.com/posts/emoji-support/</guid>
-      <description>&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;</description>
+      <description>Guide to emoji usage in Hugo</description>
     </item>
     
   </channel>

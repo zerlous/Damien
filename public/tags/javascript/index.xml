@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>javascript on Zerlous</title>
+    <link>https://zerlous.com/tags/javascript/</link>
+    <description>Recent content in javascript on Zerlous</description>
+    <image>
+      <url>https://zerlous.com/papermod-cover.png</url>
+      <link>https://zerlous.com/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 18 May 2021 15:31:27 +0800</lastBuildDate><atom:link href="https://zerlous.com/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PX单位的wxs实现</title>
+      <link>https://zerlous.com/posts/wxs-add-unit/</link>
+      <pubDate>Tue, 18 May 2021 15:31:27 +0800</pubDate>
+      
+      <guid>https://zerlous.com/posts/wxs-add-unit/</guid>
+      <description>Desc Text.</description>
+    </item>
+    
+    <item>
+      <title>BEM规范生成工具类wxs实现</title>
+      <link>https://zerlous.com/posts/wxs-bem/</link>
+      <pubDate>Tue, 18 May 2021 15:16:01 +0800</pubDate>
+      
+      <guid>https://zerlous.com/posts/wxs-bem/</guid>
+      <description>Desc Text.</description>
+    </item>
+    
+    <item>
+      <title>记忆函数memoize的wxs实现</title>
+      <link>https://zerlous.com/posts/wxs-memoize/</link>
+      <pubDate>Tue, 18 May 2021 14:59:28 +0800</pubDate>
+      
+      <guid>https://zerlous.com/posts/wxs-memoize/</guid>
+      <description>Desc Text.</description>
+    </item>
+    
+  </channel>
+</rss>

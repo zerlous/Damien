@@ -93,8 +93,8 @@ params:
           url: "index.xml"
 
     label:
-        text: "  "
-        icon: /logo.png
+        text: "一方净土"
+        # icon: /logo.png
         iconHeight: 90
 
     # analytics:

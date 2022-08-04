@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>javascript 模块化异同 | Zerlous</title>
+<title>javascript 模块化异同 | 一方净地</title>
 <meta name="keywords" content="">
 <meta name="description" content="CommonJS CommonJS为同步加载模式，主要应用场景为服务端，通常应用于Node.js的模块化输出与引用。核心的模块化环境变量有module、exports、require、global。
  require命令用于提供模块引用。 module.exports命令用以提供规范模块的输出。（创建后被引用，会创建引用缓存）  // a.js const text = &#39;hello world&#39;; const printText = (name) =&gt; { console.log(text); console.log(&#39;my name is &#39;, name); }; module.exports = { printText } // b.js const { printText } = require(&#39;./a.js&#39;); printText(&#39;zerlous&#39;); // hello world // my name is zerlous  CommonJS主要采用同步加载模块，并且应用于服务端，大部分加载的文件资源都在本地服务器，所以执行效率很高。 不适用于客户端（浏览器端）。  AMD AMD (Asynchronous Module Definition)为异步加载模式，模块的加载不会产生阻塞，所有依赖该模块的的依赖语法都会在一个回调函数callback中，只有等依赖模块加载完成后，才会执行该回调函数。（* 核心RequireJS）。
@@ -124,7 +124,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "Zerlous",
+    "name": "一方净地",
     "logo": {
       "@type": "ImageObject",
       "url": "https://zerlous.com/favicon.ico"
